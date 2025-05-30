@@ -21,17 +21,31 @@ struct Pasiekimai {
     char valstybe[ValIlg];
 };
 
-void skaitymas(int &n) {
+void skaitymas(Olimpines zaidejai[], int &n) {
     ifstream fd("Olimpines.txt");
     fd >> n;
     for (int i = 0; i < n; i += 1) {
-        cout << 'a';
+        fd >> zaidejai[i].kodas;
+        fd >> zaidejai[i].rezult;
     }
     fd.close();
 }
 
+void rasymas(Olimpines zaidejai[], int n) {
+    ofstream fo("Rezultatai.txt");
+    
+    for(int i = 0; i < n; i += 1) {
+        fo << zaidejai[i].kodas << " ";
+        fo << zaidejai[i].rezult << endl;
+    }
+
+    fo.close();
+}
+
 int main() {
     int n;
-    skaitymas(n);
+    Olimpines zaidejai[32];
+    skaitymas(zaidejai, n);
+    rasymas(zaidejai, n);
     return 0;
 }
