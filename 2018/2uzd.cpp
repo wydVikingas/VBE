@@ -11,23 +11,25 @@ struct Slidininkas{
 
 void skaityti(Slidininkas S[], Slidininkas F[], int &n, int &m) {
     ifstream fin("U2.txt");
+    if (!fin) {
+        cerr << "Could not open U2.txt\n";
+        exit(1);
+    }
     int val, min, sec;
 
     fin >> n;
     for (int i = 0; i < n; i++){
-        fin.ignore();
         fin.get(S[i].v, 21);
         fin >> val >> min >> sec;
         S[i].laikas = val*3600 + min*60 + sec;
     }
     fin >> m;
     for (int i = 0; i < m; i++) {
-        fin.ignore();
         fin.get(F[i].v, 21);
         fin >> val >> min >> sec;
         for(int j = 0; j < n; j++) {
-            if(strcmp(F[i].v, S[i].v) == 0) {
-                F[i].laikas = val*3600+min*60+sec - S[i].laikas;
+            if(strcmp(F[i].v, S[j].v) == 0) {
+                F[i].laikas = val*3600+min*60+sec - S[j].laikas;
             }
         }
     }
